@@ -42,6 +42,8 @@ class MoviesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => error
+      render json: { error: error.message }, status: :not_found
     end
 
     # Only allow a list of trusted parameters through.
